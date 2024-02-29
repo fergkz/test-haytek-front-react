@@ -40,7 +40,7 @@ const Filter = (props: Props) => {
             return;
         }
 
-        axios.get(`http://localhost/api/v1/test-haytek-api/carriers`, {
+        axios.get(`http://localhost:8089/api/v1/test-haytek-api/carriers`, {
             headers: {
                 'accept': 'application/json',
                 'Access-Control-Allow-Origin': '*'
