@@ -27,6 +27,12 @@ const Filter = (props: Props) => {
         }
     };
 
+    // Quando for montado pela primeira vez, disparamos a data atual
+    useEffect(() => {
+        if (props.filterType === 'date') {
+            props.onFilterChange(new Date().toISOString().split('T')[0]);
+        }
+    }, []);
 
     // Quando alterar o tipo de filtro, carrega os dados
     useEffect(() => {
@@ -60,6 +66,7 @@ const Filter = (props: Props) => {
     }, [props]);
 
     return (
+
         <>
             <div className="container px-0 py-2" id="icon-grid">
                 <div className="row">
@@ -71,6 +78,7 @@ const Filter = (props: Props) => {
 
                                 <input type="date"
                                     onChange={handleInputChange}
+                                    defaultValue={new Date().toISOString().split('T')[0]}
                                     className="form-control" id="datepicker" />
 
                                 <div className="form-text">

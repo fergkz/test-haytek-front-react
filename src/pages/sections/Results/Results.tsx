@@ -53,6 +53,16 @@ const Results = (props: Props) => {
                     );
                 }
 
+                responseAllPacks.sort((a, b) => {
+                    if (a.DeliveryDate < b.DeliveryDate) {
+                        return -1;
+                    }
+                    if (a.DeliveryDate > b.DeliveryDate) {
+                        return 1;
+                    }
+                    return 0;
+                });
+
                 setAllPacks(responseAllPacks);
 
                 setLoading(false);
@@ -75,27 +85,41 @@ const Results = (props: Props) => {
                         </div>
                     </div>
                 </div>
-            ) : (allPacks.length == 0 ? (
-                <div className="container my-4">
-                    <div className="row">
-                        <div className="col-sm-12">
-                            <div className="form-text fs-4 text-center p-5">
-                                Nenhum registro encontrado
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            ) : null)}
+            ) : null}
 
-            {!loading ? allPacks.map((pack) => {
-                if (props.filterType === 'carrier' && pack.CarrierId !== props.carrierId) {
-                    return null;
+            {!loading ? (() => {
+                const packsComponents: any[] = [];
+
+                allPacks.map((pack) => {
+                    if (props.filterType === 'carrier' && pack.CarrierId !== props.carrierId) {
+                        return null;
+                    }
+
+                    if (props.filterType === 'date' && pack.DeliveryDate !== props.date) {
+                        return null;
+                    }
+
+                    packsComponents.push(
+                        <PackBlock pack={pack} blockType={props.filterType} />
+                    )
+                })
+
+                if (packsComponents.length > 0) {
+                    return packsComponents
                 }
 
                 return (
-                    <PackBlock pack={pack} blockType="s" />
+                    <div className="container my-4">
+                        <div className="row">
+                            <div className="col-sm-12">
+                                <div className="form-text fs-4 text-center p-5">
+                                    Nenhum registro encontrado
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 )
-            }) : null}
+            })() : null}
         </>
     )
 }

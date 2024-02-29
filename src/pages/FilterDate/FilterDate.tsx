@@ -5,17 +5,17 @@ import Results from "../sections/Results/Results"
 
 const FilterDate = () => {
 
-    const [filter, setFiltro] = useState<string>('');
+    const [date, setDate] = useState<string>('');
 
-    const handleFiltroChange = (novoFiltro: string) => {
-        setFiltro(novoFiltro);
+    const handleFiltroChange = (date: string) => {
+        setDate(date);
     };
 
     return (
         <>
             <Menu />
             <Filter filterType="date" onFilterChange={handleFiltroChange} />
-            <Results filter={filter} />
+            {date ? <Results filterType="date" date={date} /> : null}
         </>
     )
 }
