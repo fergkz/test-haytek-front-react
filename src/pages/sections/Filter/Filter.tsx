@@ -15,7 +15,6 @@ const Filter = (props: Props) => {
 
     const [carriers, setCarriers] = useState([] as FilterCarrierType[]);
 
-
     let timeoutIfInputChange: any;
     const handleInputChange = (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         clearTimeout(timeoutIfInputChange);
@@ -53,6 +52,7 @@ const Filter = (props: Props) => {
                     );
                 }
                 setCarriers(responseCarriers);
+                handleInputChange({ target: { value: responseCarriers[0].Id } } as ChangeEvent<HTMLSelectElement>);
             })
             .catch(() => {
                 alert('Erro ao buscar os dados');

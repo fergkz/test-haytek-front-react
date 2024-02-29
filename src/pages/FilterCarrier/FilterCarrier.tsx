@@ -5,17 +5,17 @@ import Results from "../sections/Results/Results"
 
 const FilterCarrier = () => {
 
-    const [filter, setFiltro] = useState<string>('');
+    const [carrierId, setCarrierId] = useState<string>('');
 
-    const handleFiltroChange = (novoFiltro: string) => {
-        setFiltro(novoFiltro);
+    const handleFiltroChange = (carrierId: string) => {
+        setCarrierId(carrierId);
     };
 
     return (
         <>
             <Menu />
             <Filter filterType="carrier" onFilterChange={handleFiltroChange} />
-            <Results filter={filter} />
+            {carrierId ? <Results filterType="carrier" carrierId={carrierId} /> : null}
         </>
     )
 }
